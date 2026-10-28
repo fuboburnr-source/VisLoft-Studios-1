@@ -37,7 +37,7 @@ document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().g
 
   function roomGroup(trigger){
     const section = trigger.closest('section[id]');
-    return section ? [...section.querySelectorAll('.space-gallery img, .gallery-row img')] : [trigger];
+    return section ? [...section.querySelectorAll('.space-gallery img, .gallery-row img, .gallery-hidden img')] : [trigger];
   }
   function render(){
     const current = group[index];
@@ -99,3 +99,11 @@ document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().g
     touchX = null;
   }, {passive:true});
 })();
+
+// V10: a gallery's full photo set includes photos hidden from the page preview.
+document.querySelectorAll('[data-open-gallery]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const firstPhoto = btn.closest('section')?.querySelector('.space-gallery img');
+    firstPhoto?.click();
+  });
+});
